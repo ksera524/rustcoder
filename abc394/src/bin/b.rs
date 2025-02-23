@@ -44,10 +44,12 @@ impl Solver {
             mut S: [String;N]
         }
 
-        //文字数順でソート
-        S.sort_by_key(|a| a.len());
+        let sorted = S
+            .into_iter()
+            .sorted_by_key(|s| s.len())
+            .collect::<Vec<String>>();
 
-        println!("{}", S.iter().join(""));
+        println!("{}", sorted.join(""));
     }
 }
 

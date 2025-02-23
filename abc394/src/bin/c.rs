@@ -7,7 +7,10 @@
 #![allow(clippy::neg_multiply)]
 #![allow(dead_code)]
 use itertools::Itertools;
-use std::collections::{BTreeMap, BTreeSet, VecDeque};
+use std::{
+    collections::{BTreeMap, BTreeSet, VecDeque},
+    iter::Rev,
+};
 
 use proconio::{
     fastout, input,
@@ -43,34 +46,18 @@ impl Solver {
             S:String,
         }
 
-        let mut flag = false;
-        let mut cnt = 0;
-        let mut ans = "".to_string();
-        for i in S.chars() {
-            if i == 'W' {
-                flag = true;
-                cnt += 1;
-            } else if flag && i == 'A' {
-                ans += "A";
-                ans += &"C".repeat(cnt);
-                flag = false;
-                cnt = 0;
-            } else {
-                if flag {
-                    ans += &"W".repeat(cnt);
-                    flag = false;
-                    cnt = 0;
-                }
-                ans += i.to_string().as_str();
-                flag = false;
-                cnt = 0;
+        let mut rev = S.chars().rev().collect_vec();
+
+        for i in 0..rev.len() {
+            if i + 1 == rev.len() {
+                break;
+            }
+            if rev[i] == 'A' && rev[i + 1] == 'W' {
+                rev[i] = 'C';
+                rev[i + 1] = 'A';
             }
         }
-        if flag {
-            ans += &"W".repeat(cnt);
-        }
-
-        println!("{}", ans);
+        println!("{}", rev.iter().rev().collect::<String>());
     }
 }
 
