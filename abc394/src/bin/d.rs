@@ -40,7 +40,39 @@ impl Solver {
         // let mut stdin = LineSource::new(BufReader::new(io::stdin()));
         // macro_rules! input(($($tt:tt)*) => (proconio::input!(from &mut stdin, $($tt)*)));
         input! {
+            S:String,
+        }
 
+        if S.len() % 2 == 1 {
+            println!("No");
+            return;
+        }
+
+        let mut stack: Vec<char> = vec![];
+
+        for c in S.chars() {
+            if c == '[' || c == '(' || c == '<' {
+                stack.push(c);
+            } else {
+                if stack.is_empty() {
+                    println!("No");
+                    return;
+                }
+                let last = stack.pop().unwrap();
+                if (last == '[' && c != ']')
+                    || (last == '(' && c != ')')
+                    || (last == '<' && c != '>')
+                {
+                    println!("No");
+                    return;
+                }
+            }
+        }
+
+        if stack.is_empty() {
+            println!("Yes");
+        } else {
+            println!("No");
         }
     }
 }
