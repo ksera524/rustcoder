@@ -16,4 +16,6 @@
     #test
     ./test.sh a
     #submit
-    ./submit a
+    ./submit.sh a
+    #debug
+    ./debug.sh a
