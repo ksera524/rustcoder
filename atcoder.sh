@@ -27,8 +27,17 @@ sed -i 's/version = 4/version = 3/' Cargo.lock
 cargo compete submit $1
 ' >> submit.sh
 
+#make debug.sh
+touch debug.sh
+echo '
+sed -i 's/version = 4/version = 3/' Cargo.lock
+p=$(pwd)
+dir=${p##*/} 
+cargo run --bin "${dir,,}-$1"
+' >> debug.sh
+
 # add execute permission to test.sh and submit.sh
-chmod +x test.sh submit.sh
+chmod +x test.sh submit.sh debug.sh
 
 # add opt-level to Cargo.toml
 echo '
