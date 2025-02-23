@@ -48,33 +48,41 @@ impl Solver {
             return;
         }
 
-        let mut stack: Vec<char> = vec![];
-
-        for c in S.chars() {
-            if c == '[' || c == '(' || c == '<' {
-                stack.push(c);
-            } else {
-                if stack.is_empty() {
-                    println!("No");
-                    return;
-                }
-                let last = stack.pop().unwrap();
-                if (last == '[' && c != ']')
-                    || (last == '(' && c != ')')
-                    || (last == '<' && c != '>')
-                {
-                    println!("No");
-                    return;
-                }
-            }
-        }
-
-        if stack.is_empty() {
+        if judge(&S) {
             println!("Yes");
         } else {
             println!("No");
         }
     }
+}
+
+fn judge(s: &str) -> bool {
+    let maybe_stack = s.chars().try_fold(vec![], |mut stack, c| match c {
+        '(' | '[' | '<' => {
+            stack.push(c);
+            return Some(stack);
+        }
+        ')' => {
+            if stack.pop() != Some('(') {
+                return None;
+            }
+            return Some(stack);
+        }
+        ']' => {
+            if stack.pop() != Some('[') {
+                return None;
+            }
+            return Some(stack);
+        }
+        '>' => {
+            if stack.pop() != Some('<') {
+                return None;
+            }
+            return Some(stack);
+        }
+        _ => unreachable!(),
+    });
+    maybe_stack.is_some_and(|stack| stack.is_empty())
 }
 
 fn main() {
