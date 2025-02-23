@@ -22,14 +22,60 @@ test-suite = "{{ manifest_dir }}/testcases/{{ bin_alias }}.yml"
 
 [template]
 src = '''
-use proconio::{fastout, input};
-use proconio::marker::*;
-#[fastout]
-fn main() {
-    input! {
+#![allow(non_snake_case)]
+#![allow(unused_imports)]
+#![allow(unused_macros)]
+#![allow(clippy::needless_range_loop)]
+#![allow(clippy::comparison_chain)]
+#![allow(clippy::nonminimal_bool)]
+#![allow(clippy::neg_multiply)]
+#![allow(dead_code)]
+use itertools::Itertools;
+use std::collections::{BTreeMap, BTreeSet, VecDeque};
+
+use proconio::{
+    fastout, input,
+    marker::{Chars, Usize1},
+};
+
+const MOD: usize = 1e9 as usize + 7;
+// const MOD: usize = 998244353;
+// const MOD: usize = 2147483647;
+
+#[macro_export]
+macro_rules! max {
+    ($x: expr) => ($x);
+    ($x: expr, $( $y: expr ),+) => {
+        std::cmp::max($x, max!($( $y ),+))
     }
-    
-    println!("{}",  );
+}
+#[macro_export]
+macro_rules! min {
+    ($x: expr) => ($x);
+    ($x: expr, $( $y: expr ),+) => {
+        std::cmp::min($x, min!($( $y ),+))
+    }
+}
+#[derive(Default)]
+struct Solver {}
+impl Solver {
+    #[fastout]
+    fn solve(&mut self) {
+        // let mut stdin = LineSource::new(BufReader::new(io::stdin()));
+        // macro_rules! input(($($tt:tt)*) => (proconio::input!(from &mut stdin, $($tt)*)));
+        input! {
+
+        }
+    }
+}
+
+fn main() {
+    std::thread::Builder::new()
+        .stack_size(128 * 1024 * 1024)
+        .spawn(|| Solver::default().solve())
+        .unwrap()
+        .join()
+        .unwrap();
 }
 '''
 
@@ -132,13 +178,17 @@ path = "./{{ contest }}"
 
 [test]
 # Toolchain for the test. (optional)
-toolchain = "1.42.0"
+toolchain = "1.70.0"
 # Profile for `cargo build`. ("dev" | "release")
 #
 # Defaults to `"dev"`.
 #profile = "dev"
 
-#[submit.transpile]
+[submit]
+kind = "file"
+path = "{{ src_path }}"
+language_id = "5054"
+#[submit]
 #kind = "command"
 #args = ["cargo", "equip", "--exclude-atcoder-crates", "--resolve-cfgs", "--remove", "docs", "--minify", "libs", "--rustfmt", "--check", "--bin", "{{ bin_name }}"]
-##language_id = ""
+#language_id = "5054"
