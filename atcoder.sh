@@ -16,21 +16,21 @@ echo '{
 # make sample.sh
 touch sample.sh
 echo '
-sed -i 's/version = 4/version = 3/' Cargo.lock
-cargo compete sample $1
+sed -i "s/version = 4/version = 3/" Cargo.lock
+cargo compete test $1
 ' >> sample.sh
 
-#make submit.sh
+# make submit.sh
 touch submit.sh
 echo '
-sed -i 's/version = 4/version = 3/' Cargo.lock
+sed -i "s/version = 4/version = 3/" Cargo.lock
 cargo compete submit $1
 ' >> submit.sh
 
-#make debug.sh
+# make debug.sh
 touch debug.sh
 echo '
-sed -i 's/version = 4/version = 3/' Cargo.lock
+sed -i "s/version = 4/version = 3/" Cargo.lock
 p=$(pwd)
 dir=${p##*/} 
 cargo run --bin "${dir,,}-$1"
