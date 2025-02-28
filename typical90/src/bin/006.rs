@@ -40,22 +40,8 @@ impl Solver {
         // let mut stdin = LineSource::new(BufReader::new(io::stdin()));
         // macro_rules! input(($($tt:tt)*) => (proconio::input!(from &mut stdin, $($tt)*)));
         input! {
-            K:i32,
-            S:i32,
+
         }
-
-        let mut ans = 0;
-
-        for x in 0..=K {
-            for y in 0..=K {
-                let z = S - x - y;
-                if 0 <= z && z <= K {
-                    ans += 1;
-                }
-            }
-        }
-
-        println!("{}", ans);
     }
 }
 
