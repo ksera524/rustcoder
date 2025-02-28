@@ -50,8 +50,8 @@ impl Solver {
             .iter()
             .combinations(5)
             .filter(|cmb| {
-                let product = cmb.iter().fold(1, |acc, &&x| (acc * x));
-                product % P == Q
+                let product = cmb.iter().fold(1, |acc, &&x| (acc * x) % P);
+                product == Q
             })
             .count();
 
