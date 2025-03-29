@@ -7,6 +7,7 @@
 #![allow(clippy::neg_multiply)]
 #![allow(dead_code)]
 use itertools::Itertools;
+use rand_core::block;
 use std::collections::{BTreeMap, BTreeSet, VecDeque};
 
 use proconio::{
@@ -40,22 +41,30 @@ impl Solver {
         // let mut stdin = LineSource::new(BufReader::new(io::stdin()));
         // macro_rules! input(($($tt:tt)*) => (proconio::input!(from &mut stdin, $($tt)*)));
         input! {
-            N:usize,
-            P:usize,
-            Q:usize,
-            A:[usize;N],
+            N:i32,
         }
 
-        let ans = A
-            .iter()
-            .combinations(5)
-            .filter(|cmb| {
-                let product = cmb.iter().fold(1, |acc, &&x| (acc * x) % P);
-                product == Q
-            })
-            .count();
+        let black = "#";
+        let white = ".";
 
-        println!("{}", ans);
+        let mut blocks = vec![vec![String::new(); N as usize]; N as usize];
+
+        for i in 1..=N {
+            let j = N + 1 - i;
+            if i <= j {
+                let text = if i % 2 == 0 {
+                    white.to_string()
+                } else {
+                    black.to_string()
+                };
+                for k in i - 1..j {
+                    blocks[k as usize][(i - 1) as usize..j as usize].fill(text.clone());
+                }
+            }
+        }
+        for i in 0..N as usize {
+            println!("{}", blocks[i].join(""));
+        }
     }
 }
 

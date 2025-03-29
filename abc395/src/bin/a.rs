@@ -6,6 +6,7 @@
 #![allow(clippy::nonminimal_bool)]
 #![allow(clippy::neg_multiply)]
 #![allow(dead_code)]
+use amplify::flags;
 use itertools::Itertools;
 use std::collections::{BTreeMap, BTreeSet, VecDeque};
 
@@ -40,22 +41,27 @@ impl Solver {
         // let mut stdin = LineSource::new(BufReader::new(io::stdin()));
         // macro_rules! input(($($tt:tt)*) => (proconio::input!(from &mut stdin, $($tt)*)));
         input! {
-            N:usize,
-            P:usize,
-            Q:usize,
-            A:[usize;N],
+            N:i32,
+            A:[i32;N],
         }
 
-        let ans = A
-            .iter()
-            .combinations(5)
-            .filter(|cmb| {
-                let product = cmb.iter().fold(1, |acc, &&x| (acc * x) % P);
-                product == Q
-            })
-            .count();
+        let mut flag = true;
 
-        println!("{}", ans);
+        let mut t = 0;
+
+        for i in A {
+            if i <= t {
+                flag = false;
+                break;
+            }
+            t = i;
+        }
+
+        if flag {
+            println!("Yes");
+        } else {
+            println!("No")
+        }
     }
 }
 

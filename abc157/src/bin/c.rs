@@ -40,23 +40,48 @@ impl Solver {
         // let mut stdin = LineSource::new(BufReader::new(io::stdin()));
         // macro_rules! input(($($tt:tt)*) => (proconio::input!(from &mut stdin, $($tt)*)));
         input! {
-            N:usize,
-            P:usize,
-            Q:usize,
-            A:[usize;N],
+            n:usize,
+            m:usize,
         }
 
-        let ans = A
-            .iter()
-            .combinations(5)
-            .filter(|cmb| {
-                let product = cmb.iter().fold(1, |acc, &&x| (acc * x) % P);
-                product == Q
-            })
-            .count();
+        let mut sc = vec![];
+        for _ in 0..m {
+            input! {
+                a:usize,
+                b:usize,
+            }
+            sc.push((a, b));
+        }
+        let mut ans = 1000;
 
-        println!("{}", ans);
+        for i in 0..1000 {
+            let string_i = i.to_string();
+            let result = check(&string_i, &sc, &n, &m);
+            if result {
+                ans = min!(ans, i);
+            }
+        }
+        if ans == 1000 {
+            println!("-1");
+        } else {
+            println!("{}", ans);
+        }
     }
+}
+
+fn check(s: &str, sc: &[(usize, usize)], n: &usize, m: &usize) -> bool {
+    let chars = s.chars().collect::<Vec<_>>();
+    if s.len() != *n {
+        return false;
+    }
+
+    for j in 0..*m {
+        let (a, b) = sc[j];
+        if chars[a - 1] != (b as u8 + b'0') as char {
+            return false;
+        }
+    }
+    true
 }
 
 fn main() {

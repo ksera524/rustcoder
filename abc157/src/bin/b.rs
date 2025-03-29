@@ -40,22 +40,8 @@ impl Solver {
         // let mut stdin = LineSource::new(BufReader::new(io::stdin()));
         // macro_rules! input(($($tt:tt)*) => (proconio::input!(from &mut stdin, $($tt)*)));
         input! {
-            N:usize,
-            P:usize,
-            Q:usize,
-            A:[usize;N],
+
         }
-
-        let ans = A
-            .iter()
-            .combinations(5)
-            .filter(|cmb| {
-                let product = cmb.iter().fold(1, |acc, &&x| (acc * x) % P);
-                product == Q
-            })
-            .count();
-
-        println!("{}", ans);
     }
 }
 
