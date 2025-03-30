@@ -40,44 +40,9 @@ impl Solver {
         // let mut stdin = LineSource::new(BufReader::new(io::stdin()));
         // macro_rules! input(($($tt:tt)*) => (proconio::input!(from &mut stdin, $($tt)*)));
         input! {
-            n:usize,
-            m:usize,
-        }
 
-        let sc = (0..m)
-            .map(|_| {
-                input! {
-                    a:usize,
-                    b:usize,
-                }
-                (a, b)
-            })
-            .collect::<Vec<_>>();
-        let ans = (0..1000)
-            .filter(|&i| {
-                let s = i.to_string();
-                check(&s, &sc, n)
-            })
-            .min();
-
-        match ans {
-            Some(i) => println!("{}", i),
-            None => println!("-1"),
         }
     }
-}
-
-fn check(s: &str, sc: &[(usize, usize)], n: usize) -> bool {
-    if s.len() != n {
-        return false;
-    }
-
-    sc.iter().all(|&(a, b)| {
-        s.chars()
-            .nth(a - 1)
-            .map(|ch| ch == std::char::from_digit(b as u32, 10).unwrap())
-            .unwrap_or(false)
-    })
 }
 
 fn main() {

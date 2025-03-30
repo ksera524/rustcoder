@@ -7,8 +7,8 @@
 #![allow(clippy::neg_multiply)]
 #![allow(dead_code)]
 use itertools::Itertools;
-use std::collections::{BTreeMap, BTreeSet, VecDeque};
 
+use pathfinding::matrix::directions::N;
 use proconio::{
     fastout, input,
     marker::{Chars, Usize1},
@@ -40,46 +40,28 @@ impl Solver {
         // let mut stdin = LineSource::new(BufReader::new(io::stdin()));
         // macro_rules! input(($($tt:tt)*) => (proconio::input!(from &mut stdin, $($tt)*)));
         input! {
-            n:usize,
-            m:usize,
+            A:usize,
+            B:usize,
+            W:usize,
+        }
+        let W = W * 1000;
+
+        let (minX, maxX) = (1..=1_000_000).filter(|&i| A * i <= W && W <= B * i).fold(
+            (None, None),
+            |(minX, maxX), i| {
+                (
+                    Some(minX.unwrap_or(i).min(i)),
+                    Some(maxX.unwrap_or(i).max(i)),
+                )
+            },
+        );
+        match (minX, maxX) {
+            (Some(minX), Some(maxX)) => println!("{} {}", minX, maxX),
+            _ => println!("UNSATISFIABLE"),
         }
 
-        let sc = (0..m)
-            .map(|_| {
-                input! {
-                    a:usize,
-                    b:usize,
-                }
-                (a, b)
-            })
-            .collect::<Vec<_>>();
-        let ans = (0..1000)
-            .filter(|&i| {
-                let s = i.to_string();
-                check(&s, &sc, n)
-            })
-            .min();
-
-        match ans {
-            Some(i) => println!("{}", i),
-            None => println!("-1"),
-        }
     }
 }
-
-fn check(s: &str, sc: &[(usize, usize)], n: usize) -> bool {
-    if s.len() != n {
-        return false;
-    }
-
-    sc.iter().all(|&(a, b)| {
-        s.chars()
-            .nth(a - 1)
-            .map(|ch| ch == std::char::from_digit(b as u32, 10).unwrap())
-            .unwrap_or(false)
-    })
-}
-
 fn main() {
     std::thread::Builder::new()
         .stack_size(128 * 1024 * 1024)
