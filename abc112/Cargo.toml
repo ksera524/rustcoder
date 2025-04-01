@@ -1,28 +1,28 @@
 [package]
-name = "abc108"
+name = "abc112"
 version = "0.1.0"
 edition = "2018"
 
 [package.metadata.cargo-compete.bin]
-abc108-a = { alias = "a", problem = "https://atcoder.jp/contests/abc108/tasks/abc108_a" }
-abc108-b = { alias = "b", problem = "https://atcoder.jp/contests/abc108/tasks/abc108_b" }
-abc108-c = { alias = "c", problem = "https://atcoder.jp/contests/abc108/tasks/arc102_a" }
-abc108-d = { alias = "d", problem = "https://atcoder.jp/contests/abc108/tasks/arc102_b" }
+abc112-a = { alias = "a", problem = "https://atcoder.jp/contests/abc112/tasks/abc112_a" }
+abc112-b = { alias = "b", problem = "https://atcoder.jp/contests/abc112/tasks/abc112_b" }
+abc112-c = { alias = "c", problem = "https://atcoder.jp/contests/abc112/tasks/abc112_c" }
+abc112-d = { alias = "d", problem = "https://atcoder.jp/contests/abc112/tasks/abc112_d" }
 
 [[bin]]
-name = "abc108-a"
+name = "abc112-a"
 path = "src/bin/a.rs"
 
 [[bin]]
-name = "abc108-b"
+name = "abc112-b"
 path = "src/bin/b.rs"
 
 [[bin]]
-name = "abc108-c"
+name = "abc112-c"
 path = "src/bin/c.rs"
 
 [[bin]]
-name = "abc108-d"
+name = "abc112-d"
 path = "src/bin/d.rs"
 
 [dependencies]
@@ -90,9 +90,6 @@ rustc-hash = "=1.1.0"
 smallvec = "=1.11.0"
 
 [dev-dependencies]
-
-[profile.dev]
-opt-level = 3
 
 [profile.dev]
 opt-level = 3
