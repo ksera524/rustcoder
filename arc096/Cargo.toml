@@ -1,29 +1,29 @@
 [package]
-name = "abc095"
+name = "arc096"
 version = "0.1.0"
 edition = "2018"
 
 [package.metadata.cargo-compete.bin]
-abc095-a = { alias = "a", problem = "https://atcoder.jp/contests/abc095/tasks/abc095_a" }
-abc095-b = { alias = "b", problem = "https://atcoder.jp/contests/abc095/tasks/abc095_b" }
-abc095-c = { alias = "c", problem = "https://atcoder.jp/contests/abc095/tasks/arc096_a" }
-abc095-d = { alias = "d", problem = "https://atcoder.jp/contests/abc095/tasks/arc096_b" }
+arc096-c = { alias = "c", problem = "https://atcoder.jp/contests/arc096/tasks/arc096_a" }
+arc096-d = { alias = "d", problem = "https://atcoder.jp/contests/arc096/tasks/arc096_b" }
+arc096-e = { alias = "e", problem = "https://atcoder.jp/contests/arc096/tasks/arc096_c" }
+arc096-f = { alias = "f", problem = "https://atcoder.jp/contests/arc096/tasks/arc096_d" }
 
 [[bin]]
-name = "abc095-a"
-path = "src/bin/a.rs"
-
-[[bin]]
-name = "abc095-b"
-path = "src/bin/b.rs"
-
-[[bin]]
-name = "abc095-c"
+name = "arc096-c"
 path = "src/bin/c.rs"
 
 [[bin]]
-name = "abc095-d"
+name = "arc096-d"
 path = "src/bin/d.rs"
+
+[[bin]]
+name = "arc096-e"
+path = "src/bin/e.rs"
+
+[[bin]]
+name = "arc096-f"
+path = "src/bin/f.rs"
 
 [dependencies]
 ac-library-rs = "=0.1.1"

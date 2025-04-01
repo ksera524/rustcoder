@@ -40,9 +40,51 @@ impl Solver {
         // let mut stdin = LineSource::new(BufReader::new(io::stdin()));
         // macro_rules! input(($($tt:tt)*) => (proconio::input!(from &mut stdin, $($tt)*)));
         input! {
-
+            c: [usize; 9],
+        }
+        if (0..=100).any(|a1| check_conditions(a1, &c)) {
+            println!("Yes");
+        } else {
+            println!("No");
         }
     }
+}
+
+fn check_conditions(a1: usize, c: &[usize]) -> bool {
+    let b1 = match c[0].checked_sub(a1) {
+        Some(v) => v,
+        None => return false,
+    };
+
+    let a2 = match c[3].checked_sub(b1) {
+        Some(v) => v,
+        None => return false,
+    };
+
+    let b2 = match c[4].checked_sub(a2) {
+        Some(v) => v,
+        None => return false,
+    };
+
+    let a3 = match c[6].checked_sub(b1) {
+        Some(v) => v,
+        None => return false,
+    };
+
+    let b3 = match c[2].checked_sub(a1) {
+        Some(v) => v,
+        None => return false,
+    };
+
+    (c[0] == a1 + b1)
+        && (c[1] == a1 + b2)
+        && (c[2] == a1 + b3)
+        && (c[3] == a2 + b1)
+        && (c[4] == a2 + b2)
+        && (c[5] == a2 + b3)
+        && (c[6] == a3 + b1)
+        && (c[7] == a3 + b2)
+        && (c[8] == a3 + b3)
 }
 
 fn main() {
